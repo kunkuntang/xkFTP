@@ -1,6 +1,7 @@
-var mysql  = require('mysql'); 
+var mysql  = require('mysql');
+var connection = require('../util/connetDB');
 
-var connection = mysql.createConnection({    
+/*var connection = mysql.createConnection({
     host     : 'localhost',      
     user     : 'root',             
     password : 'root',      
@@ -8,23 +9,25 @@ var connection = mysql.createConnection({
     database: 'nodesample',
 });
 
-connection.connect();
+connection.connect();*/
 
-var  userAddSql = 'INSERT INTO userinfo(Id,UserName,UserPass) VALUES(0,?,?)';
-var  userAddSql_Params = ['Wilson', 'abcd'];
+function addMovie(movies, cb) {
+    var  sql = 'INSERT INTO movies(doctor,title,language,summary,video) VALUES(?,?,?,?,?)';
+    //增
+    connection.query(sql,movies,function (err, result) {
+        if(err){
+            console.log('[INSERT ERROR] - ',err.message);
+            return;
+        }
 
-//增
-connection.query(userAddSql,userAddSql_Params,function (err, result) {
-    if(err){
-      console.log('[INSERT ERROR] - ',err.message);
-      return;
-    }       
+        console.log('--------------------------INSERT----------------------------');
 
-    console.log('--------------------------INSERT----------------------------');
+        //console.log('INSERT ID:',result.insertId);
+        console.log('INSERT ID:',result);
+        cb(result);
+        console.log('------------------------------------------------------------');
+    });
 
-  //console.log('INSERT ID:',result.insertId);       
-    console.log('INSERT ID:',result);       
-    console.log('------------------------------------------------------------'); 
-});
- 
+}
+
 connection.end();

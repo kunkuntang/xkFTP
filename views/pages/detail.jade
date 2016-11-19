@@ -5,7 +5,7 @@ block content
   .container
     .row
       .col-md-9
-        video(src="#{movie.video}", width="720", height="600", type="video/mp4", controls="")
+        video(src="../videos/#{movie.video}", width="720", height="600", type="video/mp4", controls="")
       .col-md-3
             dl.dl-horizontal
             dt 电影名字
@@ -13,7 +13,7 @@ block content
             dt 导演
             dd= movie.doctor
             dt 国家
-            dd= movie.country
+            dd= movie.city
             dt 语言
             dd= movie.language
             dt 上映年份
@@ -21,4 +21,4 @@ block content
             dt 简介
             dd= movie.summary
     .row
-      a(href="/download?movieName=#{movie.name}") 下载
+      a.btn.btn-primary(href="/download?movieName=#{movie.video}") 下载
